@@ -28,13 +28,21 @@ class User {
 
     recoveryUser(data){
         for(user of data) {
-            const html = this.layoutUser(user.name , user.email, user.age , user.phone) 
+            const html = this.layoutUser(user.name , user.email, user.age , user.phone , user.id) 
 
             this.inserthtml(html);
         }
+        const classe = document.querySelectorAll('.delete-user');
+
+        for (button of classe) {
+            button.onclick = event => this.deleteUser(event,button.id);
+        }
+    }
+    deleteUser(id){
+        console.log(`deletou o usuario do id; ${id});
     }
 
-    layoutUser(name, email, age, phone){
+    layoutUser(name, email, age, phone, id){
         return `
         <div class =" column mt-5">
              <div class = "card">
@@ -43,11 +51,11 @@ class User {
                      <p class = "user-email">${email}</p>
                      <p class = "user-age">${age}</p>
                      <p class = "user-phone">${phone}</p>
+                     <button type="button" class="btn btn-danger" id="${id}">Deletar</button>
                  </div>
              </div>
         </div>
-        `;
-    }
+        `
 
     userValidate(event){
         event.preventDefault();
@@ -67,6 +75,9 @@ class User {
     }
     inserthtml(html){
         document.getElementById('usersBoard').innerHTML += html ;
+
+        const classe = document.querySelectorAll('delete-user');
+
     }
 
     createUser(user){
